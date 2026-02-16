@@ -1,8 +1,8 @@
-name: Update README stats cards
+name: Update README cards
 
 on:
   schedule:
-    - cron: "0 3 * * *" # 매일 03:00 UTC = KST 12:00 (하루 1회)
+    - cron: "0 3 * * *" # 하루 1회 (UTC 03:00 = KST 12:00)
   workflow_dispatch:
 
 permissions:
@@ -12,29 +12,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Generate cards
-        uses: stats-organization/github-readme-stats-action@v1.1.0
+      - name: Generate stats card
+        uses: readme-tools/github-readme-stats-action@v1
         with:
-          username: jinhyeonseo01
-          output_dir: profile/stats
-          cards: |
-            stats
-            top-langs
-          # 네가 쓰던 쿼리스트링을 최대한 동일하게 반영
-          stats_options: "count_private=true&show_icons=true"
-          top_langs_options: "layout=compact"
-        env:
-          # public-only 조건이므로 기본 토큰으로 충분
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          card: stats
+          options: username=jinhyeonseo01&count_private=true&show_icons=true
+          path: profile/stats/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit and push
+      - name: Generate top languages card
+        uses: readme-tools/github-readme-stats-action@v1
+        with:
+          card: top-langs
+          options: username=jinhyeonseo01&layout=compact
+          path: profile/stats/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           git add profile/stats/*.svg
           git diff --cached --quiet || git commit -m "chore: update readme stats"
           git push
