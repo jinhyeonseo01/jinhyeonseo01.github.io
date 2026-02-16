@@ -6,6 +6,7 @@
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "dev": "astro dev",
+    "sync:og": "node scripts/fetch-og-covers.mjs",
     "sync:github": "node scripts/fetch-github-snapshot.mjs",
     "build": "astro build",
     "preview": "astro preview",

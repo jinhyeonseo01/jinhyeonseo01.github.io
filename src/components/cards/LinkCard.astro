@@ -1,6 +1,6 @@
 ---
 import { t } from "../../i18n/messages";
-import { getLocalizedText } from "../../lib/registry";
+import { getLinkImage, getLocalizedText } from "../../lib/registry";
 import type { LinkRegistryItem, Locale } from "../../lib/types";
 
 interface Props {
@@ -17,7 +17,7 @@ const text = getLocalizedText(item, locale);
   <a class="link-card__media" href={detailPath} aria-label={`${text.title} preview`}>
     <img
       class="link-card__image"
-      src={item.ogImage ?? "/og/dashboard.svg"}
+      src={getLinkImage(item, "/og/dashboard.svg")}
       alt={`${text.title} OG preview`}
       loading="lazy"
       decoding="async"

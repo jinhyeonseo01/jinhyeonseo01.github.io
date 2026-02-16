@@ -11,6 +11,7 @@ Astro-based personal hub dashboard with:
 
 ```bash
 pnpm install
+pnpm sync:og
 pnpm dev
 pnpm check
 pnpm build
@@ -33,6 +34,7 @@ cp .env.example .env
 ```
 
 Anonymous browser calls are limited (commonly `60/hour`), but this site uses build-time snapshot data (`public/data/github/*.json`) to avoid repeated live API calls in production.
+Link card cover images are also collected at build-time from each external URL (`og:image`/`twitter:image`) and saved to `src/data/generated/og-covers.json`.
 
 ## Structure
 

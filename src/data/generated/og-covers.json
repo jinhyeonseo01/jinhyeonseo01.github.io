@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-02-16T23:24:51.121Z",
+  "entries": [
+    {
+      "slug": "techblog",
+      "href": "https://techblog.clerindev.com/",
+      "image": "https://techblog.clerindev.com/_astro/main-avatar.DOYrwLhf.webp",
+      "source": "og:image",
+      "checkedAt": "2026-02-16T23:24:51.121Z"
+    },
+    {
+      "slug": "youtube",
+      "href": "https://www.youtube.com/@clerin_dev",
+      "image": "https://yt3.googleusercontent.com/7d-zIoms4VFIIolm43_MRNtSdkDtkZPh_UVx0YJQeCpZD-9NvzJgcB5fcE-7eFf43nMqhLnsHg=s900-c-k-c0x00ffffff-no-rj",
+      "source": "og:image",
+      "checkedAt": "2026-02-16T23:24:51.121Z"
+    },
+    {
+      "slug": "github",
+      "href": "https://github.com/jinhyeonseo01",
+      "image": "https://avatars.githubusercontent.com/u/45618159?v=4?s=400",
+      "source": "og:image",
+      "checkedAt": "2026-02-16T23:24:51.121Z"
+    },
+    {
+      "slug": "gamembti",
+      "href": "https://gamembti.clerindev.com/",
+      "image": "https://gamembti.clerindev.com/images/icons/Banner.jpg",
+      "source": "og:image",
+      "checkedAt": "2026-02-16T23:24:51.121Z"
+    },
+    {
+      "slug": "api-catalog",
+      "href": "https://github.com/jinhyeonseo01?tab=repositories",
+      "image": "https://avatars.githubusercontent.com/u/45618159?v=4?s=400",
+      "source": "og:image",
+      "checkedAt": "2026-02-16T23:24:51.121Z"
+    }
+  ]
+}

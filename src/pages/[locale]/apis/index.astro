@@ -3,7 +3,7 @@ import LanguageSwitcher from "../../../components/common/LanguageSwitcher.astro"
 import GitHubApiInsightsPanel from "../../../components/dashboard/GitHubApiInsightsPanel.astro";
 import { defaultLocale, isLocale, locales, type Locale } from "../../../i18n/config";
 import { getMessages } from "../../../i18n/messages";
-import { getLinksByKind, getLocalizedText } from "../../../lib/registry";
+import { getLinkImage, getLinksByKind, getLocalizedText } from "../../../lib/registry";
 import { buildLocalizedPathMap, createSeo } from "../../../lib/seo";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
@@ -71,7 +71,7 @@ const seo = createSeo({
               <article class="api-row">
                 <img
                   class="api-row__image"
-                  src={item.ogImage ?? "/og/dashboard.svg"}
+                  src={getLinkImage(item, "/og/dashboard.svg")}
                   alt={`${text.title} OG preview`}
                   loading="lazy"
                 />

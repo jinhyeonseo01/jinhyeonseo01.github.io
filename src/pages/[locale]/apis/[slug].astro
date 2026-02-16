@@ -2,7 +2,7 @@
 import LanguageSwitcher from "../../../components/common/LanguageSwitcher.astro";
 import { defaultLocale, isLocale, locales, type Locale } from "../../../i18n/config";
 import { getMessages } from "../../../i18n/messages";
-import { getLinksByKind, getLocalizedText } from "../../../lib/registry";
+import { getLinkImage, getLinksByKind, getLocalizedText } from "../../../lib/registry";
 import { buildLocalizedPathMap, createDetailJsonLd, createSeo } from "../../../lib/seo";
 import type { LinkRegistryItem } from "../../../lib/types";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
@@ -34,7 +34,7 @@ const seo = createSeo({
   locale,
   title: `${text.title} | ${messages.detailForApi}`,
   description: text.summary,
-  image: item.ogImage ?? "/og/api-catalog.svg",
+  image: getLinkImage(item, "/og/api-catalog.svg"),
   pathByLocale: buildLocalizedPathMap((entry) => `/${entry}/apis/${item.slug}/`),
   jsonLd: createDetailJsonLd({
     site,

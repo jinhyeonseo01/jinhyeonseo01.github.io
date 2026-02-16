@@ -1,6 +1,7 @@
 import apiRegistryRaw from "../data/registry/apis.json";
 import mainRegistryRaw from "../data/registry/main-links.json";
 import projectsRegistryRaw from "../data/registry/projects.json";
+import ogCoversRaw from "../data/generated/og-covers.json";
 import { defaultLocale, isLocale, type Locale } from "../i18n/config";
 import type { LinkKind, LinkRegistryItem, LocalizedText } from "./types";
 
@@ -59,6 +60,30 @@ function asLocalizedTextArray(value: unknown, fieldName: string): LocalizedText[
   });
 }
 
+function buildOgCoverBySlug(raw: unknown): Map<string, string> {
+  if (!isObject(raw) || !Array.isArray(raw.entries)) {
+    return new Map();
+  }
+
+  const map = new Map<string, string>();
+
+  for (const entry of raw.entries) {
+    if (!isObject(entry)) {
+      continue;
+    }
+
+    const slug = typeof entry.slug === "string" ? entry.slug.trim() : "";
+    const image = typeof entry.image === "string" ? entry.image.trim() : "";
+    if (!slug || !image) {
+      continue;
+    }
+
+    map.set(slug, image);
+  }
+
+  return map;
+}
+
 function validateRegistry(raw: unknown, expectedKind: LinkKind): LinkRegistryItem[] {
   if (!Array.isArray(raw)) {
     throw new Error(`Invalid ${expectedKind} registry: expected array`);
@@ -113,6 +138,7 @@ function validateRegistry(raw: unknown, expectedKind: LinkKind): LinkRegistryIte
 const mainLinks = validateRegistry(mainRegistryRaw, "main");
 const projectLinks = validateRegistry(projectsRegistryRaw, "project");
 const apiLinks = validateRegistry(apiRegistryRaw, "api");
+const ogCoverBySlug = buildOgCoverBySlug(ogCoversRaw);
 const allLinks = [...mainLinks, ...projectLinks, ...apiLinks].sort((a, b) => a.order - b.order);
 
 export function getLinksByKind(kind: LinkKind): LinkRegistryItem[] {
@@ -147,4 +173,8 @@ export function getLocalizedText(
     item.texts.find((text) => text.locale === defaultLocale) ??
     item.texts[0]
   );
+}
+
+export function getLinkImage(item: LinkRegistryItem, fallback = "/og/dashboard.svg"): string {
+  return ogCoverBySlug.get(item.slug) ?? item.ogImage ?? fallback;
 }

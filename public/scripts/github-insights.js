@@ -2,7 +2,7 @@ const GITHUB_ACCEPT_HEADER = { Accept: "application/vnd.github+json" };
 const MAX_REPO_PAGES = 5;
 const REPO_PAGE_SIZE = 100;
 const DAY_MS = 24 * 60 * 60 * 1000;
-const LOCAL_CACHE_TTL_MS = 15 * 60 * 1000;
+const LOCAL_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const ENABLE_LIVE_FALLBACK_DEFAULT = false;
 const API_KEYWORD_PATTERN = /\b(api|apis|sdk|rest|graphql|backend|endpoint|openapi|swagger|service|server)\b/i;
 const githubDataCache = new Map();
@@ -161,6 +161,14 @@ function getLocalCacheKey(username) {
   return `github-insights-cache:${username}`;
 }
 
+function clearLocalCache(username) {
+  try {
+    window.localStorage.removeItem(getLocalCacheKey(username));
+  } catch {
+    // no-op
+  }
+}
+
 function readLocalCache(username) {
   try {
     const raw = window.localStorage.getItem(getLocalCacheKey(username));
@@ -170,19 +178,29 @@ function readLocalCache(username) {
 
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== "object") {
+      clearLocalCache(username);
       return null;
     }
 
     if (typeof parsed.cachedAt !== "number") {
+      clearLocalCache(username);
       return null;
     }
 
     if (Date.now() - parsed.cachedAt > LOCAL_CACHE_TTL_MS) {
+      clearLocalCache(username);
       return null;
     }
 
-    return normalizeDataset(parsed.dataset, "local-cache");
+    const normalized = normalizeDataset(parsed.dataset, "local-cache");
+    if (!normalized) {
+      clearLocalCache(username);
+      return null;
+    }
+
+    return normalized;
   } catch {
+    clearLocalCache(username);
     return null;
   }
 }
@@ -335,10 +353,11 @@ function setSyncAndQuota(root, syncedAt, quotaRemaining, source, locale) {
   const quotaTarget = root.querySelector("[data-gh-rate]");
   if (quotaTarget) {
     const cachedLabel = root.dataset.cachedLabel || "Cached";
-    if (source === "live" && quotaRemaining >= 0) {
-      quotaTarget.textContent = `${quotaRemaining}/60`;
+    if (quotaRemaining >= 0) {
+      const quotaText = formatNumber(quotaRemaining, locale);
+      quotaTarget.textContent = source === "live" ? quotaText : `${quotaText}(${cachedLabel})`;
     } else {
-      quotaTarget.textContent = cachedLabel;
+      quotaTarget.textContent = source === "live" ? "--" : `--(${cachedLabel})`;
     }
   }
 }

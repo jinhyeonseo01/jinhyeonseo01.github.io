@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Generate OG cover snapshot
+        run: pnpm run sync:og
+
       - name: Generate GitHub snapshot
         env:
           GH_SNAPSHOT_TOKEN: ${{ secrets.GH_SNAPSHOT_TOKEN }}
