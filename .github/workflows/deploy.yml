@@ -22,6 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
@@ -46,6 +49,17 @@ jobs:
 
       - name: Build site
         run: pnpm build
+
+      - name: Verify build output
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "dist/index.html is missing. Build output is not deployable."
+            echo "Top-level dist entries:"
+            ls -la dist || true
+            echo "Sample files under dist:"
+            find dist -maxdepth 4 -type f | head -n 200 || true
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
