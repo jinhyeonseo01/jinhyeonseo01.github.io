@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jinhyeonseo01.github.io/schemas/api-registry.schema.json",
+  "title": "API Registry Item",
+  "allOf": [
+    {
+      "$ref": "./link-registry.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "api"
+        }
+      }
+    }
+  ]
+}
+

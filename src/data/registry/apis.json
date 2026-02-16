@@ -1,0 +1,35 @@
+[
+  {
+    "id": "api-catalog",
+    "slug": "api-catalog",
+    "kind": "api",
+    "href": "https://github.com/jinhyeonseo01?tab=repositories",
+    "featured": false,
+    "order": 210,
+    "tags": ["api", "docs", "catalog"],
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "API 카탈로그",
+        "summary": "향후 API 문서와 엔드포인트를 연결할 기본 포털입니다."
+      },
+      {
+        "locale": "en",
+        "title": "API Catalog",
+        "summary": "Primary portal for upcoming API docs and endpoint entries."
+      },
+      {
+        "locale": "ja",
+        "title": "API カタログ",
+        "summary": "今後の API ドキュメントとエンドポイントを接続するポータルです。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "API 目录",
+        "summary": "用于连接后续 API 文档与端点入口的基础门户。"
+      }
+    ]
+  }
+]
+

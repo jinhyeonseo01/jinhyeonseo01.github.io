@@ -1,0 +1,33 @@
+---
+import type { LinkRegistryItem, Locale } from "../../lib/types";
+import LinkCard from "../cards/LinkCard.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  items: LinkRegistryItem[];
+}
+
+const { title, description, locale, items } = Astro.props;
+---
+
+<section class="dashboard-section">
+  <header class="dashboard-section__header">
+    <h2 class="dashboard-section__title">{title}</h2>
+    <p class="dashboard-section__description">{description}</p>
+  </header>
+
+  <div class="card-grid">
+    {
+      items.map((item) => (
+        <LinkCard
+          item={item}
+          locale={locale}
+          detailPath={`/${locale}/${item.kind === "api" ? "apis" : "sites"}/${item.slug}/`}
+        />
+      ))
+    }
+  </div>
+</section>
+

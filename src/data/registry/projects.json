@@ -1,0 +1,35 @@
+[
+  {
+    "id": "project-gamembti",
+    "slug": "gamembti",
+    "kind": "project",
+    "href": "https://gamembti.clerindev.com/",
+    "featured": true,
+    "order": 110,
+    "tags": ["game", "mbti", "personality"],
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "GameMBTI",
+        "summary": "게임 취향 기반 MBTI 성향을 확인할 수 있는 사이트입니다."
+      },
+      {
+        "locale": "en",
+        "title": "GameMBTI",
+        "summary": "A site that maps gaming preferences to MBTI-like traits."
+      },
+      {
+        "locale": "ja",
+        "title": "GameMBTI",
+        "summary": "ゲームの好みからMBTI傾向を確認できるサイトです。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "GameMBTI",
+        "summary": "根据游戏偏好分析 MBTI 倾向的网站。"
+      }
+    ]
+  }
+]
+

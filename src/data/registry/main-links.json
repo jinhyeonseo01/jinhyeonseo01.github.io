@@ -1,0 +1,99 @@
+[
+  {
+    "id": "main-techblog",
+    "slug": "techblog",
+    "kind": "main",
+    "href": "https://techblog.clerindev.com/",
+    "featured": true,
+    "order": 10,
+    "tags": ["blog", "tech", "writing"],
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "기술 블로그",
+        "summary": "개발 기록, 문제 해결, 기술 정리를 공유합니다."
+      },
+      {
+        "locale": "en",
+        "title": "Tech Blog",
+        "summary": "Engineering notes, solutions, and technical writeups."
+      },
+      {
+        "locale": "ja",
+        "title": "技術ブログ",
+        "summary": "開発記録、課題解決、技術ノートをまとめています。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "技术博客",
+        "summary": "分享开发记录、问题解决与技术总结。"
+      }
+    ]
+  },
+  {
+    "id": "main-youtube",
+    "slug": "youtube",
+    "kind": "main",
+    "href": "https://www.youtube.com/@clerin_dev",
+    "featured": true,
+    "order": 20,
+    "tags": ["video", "youtube", "channel"],
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "유튜브 채널",
+        "summary": "개발 관련 영상과 프로젝트 소개를 업로드합니다."
+      },
+      {
+        "locale": "en",
+        "title": "YouTube Channel",
+        "summary": "Videos about development and product-building stories."
+      },
+      {
+        "locale": "ja",
+        "title": "YouTube チャンネル",
+        "summary": "開発関連の動画とプロジェクト紹介を公開しています。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "YouTube 频道",
+        "summary": "发布开发相关视频与项目介绍。"
+      }
+    ]
+  },
+  {
+    "id": "main-github",
+    "slug": "github",
+    "kind": "main",
+    "href": "https://github.com/jinhyeonseo01",
+    "featured": true,
+    "order": 30,
+    "tags": ["code", "opensource", "github"],
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "GitHub",
+        "summary": "코드 저장소와 실험 프로젝트를 확인할 수 있습니다."
+      },
+      {
+        "locale": "en",
+        "title": "GitHub",
+        "summary": "Source repositories and ongoing experiments."
+      },
+      {
+        "locale": "ja",
+        "title": "GitHub",
+        "summary": "コードリポジトリと実験プロジェクトを確認できます。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "GitHub",
+        "summary": "查看代码仓库与持续中的实验项目。"
+      }
+    ]
+  }
+]
+

@@ -1,0 +1,51 @@
+---
+import {
+  localeLabels,
+  localeStorageKey,
+  locales,
+  replaceLocaleInPath,
+  type Locale
+} from "../../i18n/config";
+import { t } from "../../i18n/messages";
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+---
+
+<div class="locale-switcher">
+  <span class="locale-switcher__label">{t(locale, "language")}</span>
+  {locales.map((entry) => (
+    <a
+      href={replaceLocaleInPath(pathname, entry)}
+      class="locale-switcher__link"
+      data-locale-link
+      data-locale={entry}
+      data-active={entry === locale}
+    >
+      {localeLabels[entry]}
+    </a>
+  ))}
+</div>
+
+<script is:inline define:vars={{ storageKey: localeStorageKey }}>
+  const links = document.querySelectorAll("[data-locale-link]");
+  for (const link of links) {
+    link.addEventListener("click", (event) => {
+      const currentTarget = event.currentTarget;
+      if (!(currentTarget instanceof HTMLAnchorElement)) {
+        return;
+      }
+
+      const locale = currentTarget.dataset.locale;
+      if (!locale) {
+        return;
+      }
+
+      window.localStorage.setItem(storageKey, locale);
+    });
+  }
+</script>

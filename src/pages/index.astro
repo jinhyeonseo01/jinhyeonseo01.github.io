@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { defaultLocale, localeStorageKey, locales } from "../i18n/config";
+import { buildLocalizedPathMap, createSeo } from "../lib/seo";
+
+const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
+const seo = createSeo({
+  site,
+  locale: defaultLocale,
+  title: "Redirecting | Clerin Dev Hub",
+  description: "Locale redirect entry point for Clerin Dev Hub.",
+  pathByLocale: buildLocalizedPathMap((locale) => `/${locale}/`),
+  noindex: true
+});
+---
+
+<BaseLayout locale={defaultLocale} seo={seo}>
+  <noscript>
+    <meta http-equiv="refresh" content={`0;url=/${defaultLocale}/`} />
+  </noscript>
+  <main class="page-shell">
+    <div class="container">
+      <section class="redirect-box">
+        <h1>Redirecting to your language…</h1>
+        <p>We are routing to the best locale for this browser.</p>
+        <a class="btn btn--primary" href={`/${defaultLocale}/`}>
+          Continue
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <script
+    is:inline
+    define:vars={{
+      defaultLocale,
+      locales,
+      storageKey: localeStorageKey
+    }}
+  >
+    const mapLanguageTag = (value) => {
+      const language = String(value || "").toLowerCase();
+      if (language.startsWith("ko")) return "ko";
+      if (language.startsWith("en")) return "en";
+      if (language.startsWith("ja")) return "ja";
+      if (
+        language.startsWith("zh-cn") ||
+        language.startsWith("zh-hans") ||
+        language === "zh"
+      ) {
+        return "zh-cn";
+      }
+      return null;
+    };
+
+    const resolveLocaleFromLanguages = (languages) => {
+      for (const language of languages) {
+        const matched = mapLanguageTag(language);
+        if (matched) return matched;
+      }
+      return defaultLocale;
+    };
+
+    const stored = window.localStorage.getItem(storageKey);
+    const preferredLocale =
+      stored && locales.includes(stored)
+        ? stored
+        : resolveLocaleFromLanguages(
+            navigator.languages && navigator.languages.length > 0
+              ? navigator.languages
+              : [navigator.language || defaultLocale]
+          );
+
+    const safeLocale = locales.includes(preferredLocale) ? preferredLocale : defaultLocale;
+    window.location.replace(`/${safeLocale}/`);
+  </script>
+</BaseLayout>

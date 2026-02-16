@@ -1,2 +1,3 @@
-# clrain.github.io
-pages
+# Documentation Entry
+
+Use `docs/INDEX.md` as the root document.

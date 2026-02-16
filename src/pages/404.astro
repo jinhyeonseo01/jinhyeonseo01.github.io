@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { defaultLocale } from "../i18n/config";
+import { getMessages } from "../i18n/messages";
+import { buildLocalizedPathMap, createSeo } from "../lib/seo";
+
+const messages = getMessages(defaultLocale);
+const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
+const seo = createSeo({
+  site,
+  locale: defaultLocale,
+  title: `404 | ${messages.siteName}`,
+  description: messages.notFoundDescription,
+  pathByLocale: buildLocalizedPathMap((locale) => `/${locale}/`),
+  noindex: true
+});
+---
+
+<BaseLayout locale={defaultLocale} seo={seo}>
+  <main class="page-shell">
+    <div class="container">
+      <section class="empty-box">
+        <h1>{messages.notFoundTitle}</h1>
+        <p>{messages.notFoundDescription}</p>
+        <a href={`/${defaultLocale}/`} class="btn btn--primary">
+          {messages.goToHome}
+        </a>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+

@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Saira+Condensed:wght@500;600;700&display=swap");
+
+:root {
+  --font-display: "Saira Condensed", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+
+  --color-bg: #f4f7fb;
+  --color-bg-strong: #e8edf6;
+  --color-surface: rgba(255, 255, 255, 0.72);
+  --color-surface-strong: #ffffff;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+  --color-line: rgba(15, 23, 42, 0.14);
+  --color-primary: #0e7490;
+  --color-primary-strong: #155e75;
+  --color-accent: #ea580c;
+  --color-accent-soft: #ffedd5;
+  --color-highlight: #0f172a;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.12);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+}
+

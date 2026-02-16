@@ -1,0 +1,103 @@
+---
+import DashboardSection from "../../components/dashboard/DashboardSection.astro";
+import LanguageSwitcher from "../../components/common/LanguageSwitcher.astro";
+import profileDataRaw from "../../data/profile.json";
+import { defaultLocale, isLocale, locales, type Locale } from "../../i18n/config";
+import { getMessages } from "../../i18n/messages";
+import { getAllLinks, getLinksByKind } from "../../lib/registry";
+import { buildLocalizedPathMap, createHubJsonLd, createSeo } from "../../lib/seo";
+import type { LocalizedProfileText, ProfileData } from "../../lib/types";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { locale }
+  }));
+}
+
+const rawLocale = Astro.params.locale?.toLowerCase() ?? defaultLocale;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+
+const profileData = profileDataRaw as ProfileData;
+const fallbackProfileText: LocalizedProfileText = profileData.texts[0] ?? {
+  locale: defaultLocale,
+  headline: "Builder",
+  bio: "Developer profile."
+};
+const localizedProfile =
+  profileData.texts.find((entry) => entry.locale === locale) ??
+  profileData.texts.find((entry) => entry.locale === defaultLocale) ??
+  fallbackProfileText;
+
+const messages = getMessages(locale);
+const mainLinks = getLinksByKind("main");
+const projectLinks = getLinksByKind("project");
+const apiLinks = getLinksByKind("api");
+const allLinks = getAllLinks();
+
+const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
+const seo = createSeo({
+  site,
+  locale,
+  title: `${messages.siteName} | ${messages.heroEyebrow}`,
+  description: messages.heroDescription,
+  pathByLocale: buildLocalizedPathMap((entry) => `/${entry}/`),
+  jsonLd: createHubJsonLd({
+    site,
+    locale,
+    links: allLinks
+  })
+});
+---
+
+<BaseLayout locale={locale} seo={seo} pageClass="page-dashboard">
+  <main class="page-shell">
+    <div class="container">
+      <header class="topbar">
+        <strong>{messages.siteName}</strong>
+        <LanguageSwitcher locale={locale} pathname={Astro.url.pathname} />
+      </header>
+
+      <section class="hero">
+        <p class="hero__eyebrow">{messages.heroEyebrow}</p>
+        <h1 class="hero__title">{messages.heroTitle}</h1>
+        <p class="hero__description">{messages.heroDescription}</p>
+
+        <div class="profile-chip">
+          <span class="profile-chip__emoji" aria-hidden="true">
+            {profileData.avatarEmoji}
+          </span>
+          <div class="profile-chip__text">
+            <span class="profile-chip__name">{profileData.name}</span>
+            <span class="profile-chip__meta">
+              {profileData.role} · {profileData.location}
+            </span>
+            <span class="profile-chip__meta">{localizedProfile.headline}</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-stack">
+        <DashboardSection
+          locale={locale}
+          title={messages.sectionMainTitle}
+          description={messages.sectionMainDescription}
+          items={mainLinks}
+        />
+        <DashboardSection
+          locale={locale}
+          title={messages.sectionProjectTitle}
+          description={messages.sectionProjectDescription}
+          items={projectLinks}
+        />
+        <DashboardSection
+          locale={locale}
+          title={messages.sectionApiTitle}
+          description={messages.sectionApiDescription}
+          items={apiLinks}
+        />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+

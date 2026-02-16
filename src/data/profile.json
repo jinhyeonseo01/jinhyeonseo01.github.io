@@ -1,0 +1,29 @@
+{
+  "name": "Jinhyeon Seo",
+  "role": "Full-stack Developer",
+  "location": "Seoul, Korea",
+  "avatarEmoji": "🛰️",
+  "texts": [
+    {
+      "locale": "ko",
+      "headline": "개발과 서비스 운영을 연결하는 빌더",
+      "bio": "콘텐츠, 제품, API를 하나의 흐름으로 연결하는 개발자입니다."
+    },
+    {
+      "locale": "en",
+      "headline": "A builder connecting development and product delivery",
+      "bio": "I build products that connect content, software, and APIs into one practical flow."
+    },
+    {
+      "locale": "ja",
+      "headline": "開発とサービス運用をつなぐビルダー",
+      "bio": "コンテンツ、プロダクト、APIを1つの流れでつなぐ開発者です。"
+    },
+    {
+      "locale": "zh-cn",
+      "headline": "连接开发与产品落地的构建者",
+      "bio": "我将内容、产品与 API 连接成一个可持续的交付流程。"
+    }
+  ]
+}
+

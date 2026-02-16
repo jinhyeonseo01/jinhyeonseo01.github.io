@@ -1,0 +1,47 @@
+---
+import "../styles/tokens.css";
+import "../styles/global.css";
+import type { Locale } from "../i18n/config";
+import type { SeoPayload } from "../lib/seo";
+
+interface Props {
+  locale: Locale;
+  seo: SeoPayload;
+  pageClass?: string;
+}
+
+const { locale, seo, pageClass = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="robots" content={seo.robots} />
+    <link rel="canonical" href={seo.canonical} />
+    {seo.alternates.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
+    ))}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:site_name" content="Clerin Dev Hub" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {seo.jsonLd.map((entry) => (
+      <script is:inline type="application/ld+json" set:html={entry} />
+    ))}
+  </head>
+  <body class={pageClass}>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,47 @@
+---
+import { defaultLocale } from "../../i18n/config";
+import { getMessages } from "../../i18n/messages";
+import { getAllLinks } from "../../lib/registry";
+import { buildLocalizedPathMap, createSeo } from "../../lib/seo";
+import type { LinkRegistryItem } from "../../lib/types";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return getAllLinks().map((item) => ({
+    params: { slug: item.slug },
+    props: { item }
+  }));
+}
+
+const item = Astro.props.item as LinkRegistryItem;
+const locale = defaultLocale;
+const messages = getMessages(locale);
+const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
+
+const seo = createSeo({
+  site,
+  locale,
+  title: `${messages.redirectTitle} | ${item.slug}`,
+  description: messages.redirectDescription,
+  pathByLocale: buildLocalizedPathMap(() => `/go/${item.slug}/`),
+  noindex: true
+});
+---
+
+<BaseLayout locale={locale} seo={seo}>
+  <meta http-equiv="refresh" content={`0;url=${item.href}`} />
+  <main class="page-shell">
+    <div class="container">
+      <section class="redirect-box">
+        <h1>{messages.redirectTitle}</h1>
+        <p>{messages.redirectDescription}</p>
+        <a class="btn btn--primary" href={item.href}>
+          {messages.redirectFallback}
+        </a>
+      </section>
+    </div>
+  </main>
+  <script is:inline define:vars={{ href: item.href }}>
+    window.location.replace(href);
+  </script>
+</BaseLayout>

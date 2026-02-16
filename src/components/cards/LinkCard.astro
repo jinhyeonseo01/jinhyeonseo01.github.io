@@ -1,0 +1,39 @@
+---
+import { t } from "../../i18n/messages";
+import { getLocalizedText } from "../../lib/registry";
+import type { LinkRegistryItem, Locale } from "../../lib/types";
+
+interface Props {
+  item: LinkRegistryItem;
+  locale: Locale;
+  detailPath: string;
+}
+
+const { item, locale, detailPath } = Astro.props;
+const text = getLocalizedText(item, locale);
+---
+
+<article class="link-card">
+  <div class="link-card__top">
+    <h3 class="link-card__title">{text.title}</h3>
+    {item.featured && <span class="badge-featured">{t(locale, "featured")}</span>}
+  </div>
+
+  <p class="link-card__summary">{text.summary}</p>
+
+  <div class="tag-list" aria-label={t(locale, "tags")}>
+    {item.tags.map((tag) => (
+      <span class="tag">#{tag}</span>
+    ))}
+  </div>
+
+  <div class="link-card__actions">
+    <a class="btn btn--secondary" href={detailPath}>
+      {t(locale, "viewDetail")}
+    </a>
+    <a class="btn btn--primary" href={`/go/${item.slug}/`}>
+      {t(locale, "openNow")}
+    </a>
+  </div>
+</article>
+

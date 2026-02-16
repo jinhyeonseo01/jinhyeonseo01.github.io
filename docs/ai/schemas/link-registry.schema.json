@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jinhyeonseo01.github.io/schemas/link-registry.schema.json",
+  "title": "Link Registry Item",
+  "type": "object",
+  "required": [
+    "id",
+    "slug",
+    "kind",
+    "href",
+    "featured",
+    "order",
+    "tags",
+    "embedType",
+    "texts"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["main", "project", "api"]
+    },
+    "href": {
+      "type": "string",
+      "format": "uri"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "order": {
+      "type": "number"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "embedType": {
+      "type": "string",
+      "enum": ["none", "iframe"]
+    },
+    "embedSrc": {
+      "type": "string"
+    },
+    "texts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["locale", "title", "summary"],
+        "properties": {
+          "locale": {
+            "type": "string",
+            "enum": ["ko", "en", "ja", "zh-cn"]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
+
