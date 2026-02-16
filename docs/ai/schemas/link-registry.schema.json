@@ -43,6 +43,9 @@
         "type": "string"
       }
     },
+    "ogImage": {
+      "type": "string"
+    },
     "embedType": {
       "type": "string",
       "enum": ["none", "iframe"]
@@ -76,4 +79,3 @@
   },
   "additionalProperties": false
 }
-

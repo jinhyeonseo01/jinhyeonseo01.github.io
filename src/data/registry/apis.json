@@ -7,6 +7,7 @@
     "featured": false,
     "order": 210,
     "tags": ["api", "docs", "catalog"],
+    "ogImage": "/og/api-catalog.svg",
     "embedType": "none",
     "texts": [
       {
@@ -32,4 +33,3 @@
     ]
   }
 ]
-

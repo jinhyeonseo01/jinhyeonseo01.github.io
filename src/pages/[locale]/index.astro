@@ -1,5 +1,7 @@
 ---
 import DashboardSection from "../../components/dashboard/DashboardSection.astro";
+import GitHubOverviewPanel from "../../components/dashboard/GitHubOverviewPanel.astro";
+import TopStarReposStrip from "../../components/dashboard/TopStarReposStrip.astro";
 import LanguageSwitcher from "../../components/common/LanguageSwitcher.astro";
 import profileDataRaw from "../../data/profile.json";
 import { defaultLocale, isLocale, locales, type Locale } from "../../i18n/config";
@@ -30,10 +32,11 @@ const localizedProfile =
   fallbackProfileText;
 
 const messages = getMessages(locale);
+const githubUsername = "jinhyeonseo01";
 const mainLinks = getLinksByKind("main");
-const projectLinks = getLinksByKind("project");
 const apiLinks = getLinksByKind("api");
 const allLinks = getAllLinks();
+const embeddedApiCount = apiLinks.filter((item) => item.embedType === "iframe").length;
 
 const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
 const seo = createSeo({
@@ -41,6 +44,7 @@ const seo = createSeo({
   locale,
   title: `${messages.siteName} | ${messages.heroEyebrow}`,
   description: messages.heroDescription,
+  image: "/og/dashboard.svg",
   pathByLocale: buildLocalizedPathMap((entry) => `/${entry}/`),
   jsonLd: createHubJsonLd({
     site,
@@ -54,50 +58,101 @@ const seo = createSeo({
   <main class="page-shell">
     <div class="container">
       <header class="topbar">
-        <strong>{messages.siteName}</strong>
-        <LanguageSwitcher locale={locale} pathname={Astro.url.pathname} />
+        <div class="brand-mark">
+          <strong>{messages.siteName}</strong>
+          <span class="brand-mark__mode">{messages.heroEyebrow}</span>
+        </div>
+        <div class="topbar__controls">
+          <a href={`/${locale}/apis/`} class="btn btn--secondary">
+            {messages.openApiDashboard}
+          </a>
+          <LanguageSwitcher locale={locale} pathname={Astro.url.pathname} />
+        </div>
       </header>
 
-      <section class="hero">
-        <p class="hero__eyebrow">{messages.heroEyebrow}</p>
-        <h1 class="hero__title">{messages.heroTitle}</h1>
-        <p class="hero__description">{messages.heroDescription}</p>
+      <section class="system-grid">
+        <aside class="system-side">
+          <section class="hero panel">
+            <p class="hero__eyebrow">{messages.heroEyebrow}</p>
+            <h1 class="hero__title">{messages.heroTitle}</h1>
+            <p class="hero__description">{messages.heroDescription}</p>
 
-        <div class="profile-chip">
-          <span class="profile-chip__emoji" aria-hidden="true">
-            {profileData.avatarEmoji}
-          </span>
-          <div class="profile-chip__text">
-            <span class="profile-chip__name">{profileData.name}</span>
-            <span class="profile-chip__meta">
-              {profileData.role} · {profileData.location}
-            </span>
-            <span class="profile-chip__meta">{localizedProfile.headline}</span>
+            <div class="profile-chip">
+              <span class="profile-chip__emoji" aria-hidden="true">
+                {profileData.avatarEmoji}
+              </span>
+              <div class="profile-chip__text">
+                <span class="profile-chip__name">{profileData.name}</span>
+                <span class="profile-chip__meta">
+                  {profileData.role} · {profileData.location}
+                </span>
+                <span class="profile-chip__meta">{localizedProfile.headline}</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel monitor-panel">
+            <h2 class="panel__title">{messages.systemOverview}</h2>
+            <div class="monitor-grid">
+              <div class="metric-box">
+                <span class="metric-box__label">{messages.metricMainChannels}</span>
+                <strong class="metric-box__value">{mainLinks.length}</strong>
+              </div>
+              <div class="metric-box">
+                <span class="metric-box__label">{messages.metricProjects}</span>
+                <strong class="metric-box__value" data-gh-shared-metric="repos" data-username={githubUsername}>
+                  --
+                </strong>
+              </div>
+              <div class="metric-box">
+                <span class="metric-box__label">{messages.metricApis}</span>
+                <strong class="metric-box__value">{apiLinks.length}</strong>
+              </div>
+              <div class="metric-box">
+                <span class="metric-box__label">{messages.metricLocales}</span>
+                <strong class="metric-box__value">{locales.length}</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel api-panel">
+            <h2 class="panel__title">{messages.apiDashboard}</h2>
+            <p class="panel__description">{messages.apiDashboardDescription}</p>
+            <div class="api-panel__status">
+              <span class="api-status-dot" aria-hidden="true"></span>
+              <span>{messages.statusNominal}</span>
+            </div>
+            <div class="api-panel__meta">
+              <span>{messages.apiTotalLabel}: {apiLinks.length}</span>
+              <span>{messages.apiEmbeddedLabel}: {embeddedApiCount}</span>
+              <span>{messages.apiExternalLabel}: {apiLinks.length - embeddedApiCount}</span>
+            </div>
+            <a href={`/${locale}/apis/`} class="btn btn--primary">
+              {messages.openApiDashboard}
+            </a>
+          </section>
+        </aside>
+
+        <div class="system-main">
+          <GitHubOverviewPanel locale={locale} username={githubUsername} messages={messages} />
+
+          <div class="section-stack">
+            <DashboardSection
+              locale={locale}
+              title={messages.sectionMainTitle}
+              description={messages.sectionMainDescription}
+              items={mainLinks}
+            />
+            <TopStarReposStrip locale={locale} username={githubUsername} messages={messages} />
+            <DashboardSection
+              locale={locale}
+              title={messages.sectionApiTitle}
+              description={messages.sectionApiDescription}
+              items={apiLinks}
+            />
           </div>
         </div>
       </section>
-
-      <div class="section-stack">
-        <DashboardSection
-          locale={locale}
-          title={messages.sectionMainTitle}
-          description={messages.sectionMainDescription}
-          items={mainLinks}
-        />
-        <DashboardSection
-          locale={locale}
-          title={messages.sectionProjectTitle}
-          description={messages.sectionProjectDescription}
-          items={projectLinks}
-        />
-        <DashboardSection
-          locale={locale}
-          title={messages.sectionApiTitle}
-          description={messages.sectionApiDescription}
-          items={apiLinks}
-        />
-      </div>
     </div>
   </main>
 </BaseLayout>
-

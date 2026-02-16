@@ -36,6 +36,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Generate GitHub snapshot
+        env:
+          GH_SNAPSHOT_TOKEN: ${{ secrets.GH_SNAPSHOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: jinhyeonseo01
+        run: pnpm run sync:github
+
       - name: Build site
         run: pnpm build
 
@@ -54,4 +61,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

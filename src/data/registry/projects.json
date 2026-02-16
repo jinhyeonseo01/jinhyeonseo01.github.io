@@ -7,6 +7,7 @@
     "featured": true,
     "order": 110,
     "tags": ["game", "mbti", "personality"],
+    "ogImage": "/og/gamembti.svg",
     "embedType": "none",
     "texts": [
       {
@@ -32,4 +33,3 @@
     ]
   }
 ]
-

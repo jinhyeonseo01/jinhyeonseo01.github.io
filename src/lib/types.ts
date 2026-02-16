@@ -19,6 +19,7 @@ export interface LinkRegistryItem {
   featured: boolean;
   order: number;
   tags: string[];
+  ogImage?: string;
   embedType: EmbedType;
   embedSrc?: string;
   texts: LocalizedText[];
@@ -37,4 +38,3 @@ export interface ProfileData {
   avatarEmoji: string;
   texts: LocalizedProfileText[];
 }
-

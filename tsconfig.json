@@ -3,6 +3,7 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "strict": true
-  }
+  },
+  "include": ["src/**/*", "astro.config.mjs"],
+  "exclude": ["dist", "node_modules", "docs/**/*"]
 }
-

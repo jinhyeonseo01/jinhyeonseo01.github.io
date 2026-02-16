@@ -1,0 +1,113 @@
+---
+import LanguageSwitcher from "../../../components/common/LanguageSwitcher.astro";
+import GitHubApiInsightsPanel from "../../../components/dashboard/GitHubApiInsightsPanel.astro";
+import { defaultLocale, isLocale, locales, type Locale } from "../../../i18n/config";
+import { getMessages } from "../../../i18n/messages";
+import { getLinksByKind, getLocalizedText } from "../../../lib/registry";
+import { buildLocalizedPathMap, createSeo } from "../../../lib/seo";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { locale }
+  }));
+}
+
+const rawLocale = Astro.params.locale?.toLowerCase() ?? defaultLocale;
+const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+const messages = getMessages(locale);
+const githubUsername = "jinhyeonseo01";
+const apiLinks = getLinksByKind("api");
+const embeddedApiCount = apiLinks.filter((item) => item.embedType === "iframe").length;
+
+const site = Astro.site?.toString() ?? "https://jinhyeonseo01.github.io";
+const seo = createSeo({
+  site,
+  locale,
+  title: `${messages.apiDashboard} | ${messages.siteName}`,
+  description: messages.apiDashboardDescription,
+  image: "/og/api-catalog.svg",
+  pathByLocale: buildLocalizedPathMap((entry) => `/${entry}/apis/`)
+});
+---
+
+<BaseLayout locale={locale} seo={seo}>
+  <main class="page-shell">
+    <div class="container stack">
+      <header class="topbar">
+        <a href={`/${locale}/`} class="btn btn--secondary">
+          {messages.backToDashboard}
+        </a>
+        <LanguageSwitcher locale={locale} pathname={Astro.url.pathname} />
+      </header>
+
+      <section class="panel api-dashboard-hero">
+        <h1 class="detail-panel__title">{messages.apiDashboard}</h1>
+        <p class="detail-panel__description">{messages.apiDashboardDescription}</p>
+
+        <div class="monitor-grid monitor-grid--compact">
+          <div class="metric-box">
+            <span class="metric-box__label">{messages.apiTotalLabel}</span>
+            <strong class="metric-box__value">{apiLinks.length}</strong>
+          </div>
+          <div class="metric-box">
+            <span class="metric-box__label">{messages.apiEmbeddedLabel}</span>
+            <strong class="metric-box__value">{embeddedApiCount}</strong>
+          </div>
+          <div class="metric-box">
+            <span class="metric-box__label">{messages.apiExternalLabel}</span>
+            <strong class="metric-box__value">{apiLinks.length - embeddedApiCount}</strong>
+          </div>
+        </div>
+      </section>
+
+      <GitHubApiInsightsPanel locale={locale} username={githubUsername} messages={messages} />
+
+      <section class="panel api-list-panel">
+        <div class="api-list">
+          {apiLinks.map((item) => {
+            const text = getLocalizedText(item, locale);
+            return (
+              <article class="api-row">
+                <img
+                  class="api-row__image"
+                  src={item.ogImage ?? "/og/dashboard.svg"}
+                  alt={`${text.title} OG preview`}
+                  loading="lazy"
+                />
+                <div class="api-row__body">
+                  <h2 class="api-row__title">{text.title}</h2>
+                  <p class="api-row__summary">{text.summary}</p>
+                  <div class="tag-list">
+                    {item.tags.map((tag) => (
+                      <span class="tag">#{tag}</span>
+                    ))}
+                  </div>
+                  <div class="api-row__meta">
+                    <span>
+                      {messages.apiRouteLabel}: <code>/go/{item.slug}/</code>
+                    </span>
+                    <span>
+                      {messages.apiStatusLabel}: {messages.statusNominal}
+                    </span>
+                    <span>
+                      {messages.apiEmbeddingLabel}: {item.embedType}
+                    </span>
+                  </div>
+                </div>
+                <div class="api-row__actions">
+                  <a class="btn btn--secondary" href={`/${locale}/apis/${item.slug}/`}>
+                    {messages.viewDetail}
+                  </a>
+                  <a class="btn btn--primary" href={`/go/${item.slug}/`}>
+                    {messages.openNow}
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

@@ -20,6 +20,7 @@ export interface SeoPayload {
   canonical: string;
   alternates: AlternateLink[];
   robots: string;
+  image: string;
   jsonLd: string[];
 }
 
@@ -30,6 +31,7 @@ interface CreateSeoInput {
   description: string;
   pathByLocale: Record<Locale, string>;
   noindex?: boolean;
+  image?: string;
   jsonLd?: unknown[];
 }
 
@@ -61,6 +63,7 @@ export function createSeo(input: CreateSeoInput): SeoPayload {
 
   const robots = input.noindex ? "noindex, follow" : "index, follow";
   const jsonLd = (input.jsonLd ?? []).map((entry) => JSON.stringify(entry));
+  const image = toAbsoluteUrl(input.site, input.image ?? "/og/dashboard.svg");
 
   return {
     title: input.title,
@@ -68,6 +71,7 @@ export function createSeo(input: CreateSeoInput): SeoPayload {
     canonical,
     alternates,
     robots,
+    image,
     jsonLd
   };
 }
@@ -144,4 +148,3 @@ export function createDetailJsonLd(input: DetailJsonLdInput): unknown[] {
     }
   ];
 }
-

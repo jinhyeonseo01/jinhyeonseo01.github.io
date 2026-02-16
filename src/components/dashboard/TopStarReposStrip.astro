@@ -1,0 +1,41 @@
+---
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  locale: Locale;
+  username: string;
+  messages: Record<string, string>;
+}
+
+const { locale, username, messages } = Astro.props;
+---
+
+<section
+  class="dashboard-section repo-strip-panel"
+  data-top-repos
+  data-username={username}
+  data-locale={locale}
+  data-loading={messages.githubLoading}
+  data-unavailable={messages.githubUnavailable}
+  data-label-stars={messages.topStarReposStars}
+  data-label-forks={messages.topStarReposForks}
+  data-label-issues={messages.topStarReposIssues}
+  data-label-updated={messages.topStarReposUpdated}
+  data-label-open={messages.topStarReposOpen}
+>
+  <header class="dashboard-section__header">
+    <h2 class="dashboard-section__title">{messages.topStarReposTitle}</h2>
+    <p class="dashboard-section__description">{messages.topStarReposDescription}</p>
+  </header>
+
+  <div class="repo-strip-scroll" data-top-repos-list>
+    <article class="repo-strip-card repo-strip-card--placeholder">
+      <p>{messages.githubLoading}</p>
+    </article>
+  </div>
+
+  <p class="github-error" data-top-repos-error hidden>{messages.githubUnavailable}</p>
+</section>
+
+<script is:inline type="module" src="/scripts/github-insights.js"></script>
+

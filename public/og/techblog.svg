@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Tech Blog">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0b1324" />
+      <stop offset="100%" stop-color="#1f365d" />
+    </linearGradient>
+    <linearGradient id="bar" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="84" y="84" width="1032" height="462" rx="24" fill="#111b31" opacity=".82" />
+  <rect x="132" y="146" width="220" height="10" rx="5" fill="#4b7cb8" opacity=".7" />
+  <rect x="132" y="192" width="680" height="36" rx="10" fill="url(#bar)" />
+  <rect x="132" y="252" width="940" height="14" rx="7" fill="#7293bf" opacity=".75" />
+  <rect x="132" y="284" width="880" height="14" rx="7" fill="#7293bf" opacity=".6" />
+  <rect x="132" y="316" width="780" height="14" rx="7" fill="#7293bf" opacity=".45" />
+  <text x="132" y="420" fill="#b8d8ff" font-size="56" font-family="IBM Plex Sans, sans-serif" font-weight="700">Tech Blog</text>
+</svg>
+

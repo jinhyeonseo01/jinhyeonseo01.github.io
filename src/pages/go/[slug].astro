@@ -23,6 +23,7 @@ const seo = createSeo({
   locale,
   title: `${messages.redirectTitle} | ${item.slug}`,
   description: messages.redirectDescription,
+  image: item.ogImage ?? "/og/dashboard.svg",
   pathByLocale: buildLocalizedPathMap(() => `/go/${item.slug}/`),
   noindex: true
 });

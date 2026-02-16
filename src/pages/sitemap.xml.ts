@@ -15,6 +15,7 @@ function buildUrlEntries(): string[] {
 
   for (const locale of locales) {
     entries.push(`/${locale}/`);
+    entries.push(`/${locale}/apis/`);
 
     for (const link of siteLinks) {
       entries.push(`/${locale}/sites/${link.slug}/`);
@@ -47,4 +48,3 @@ export const GET: APIRoute = () => {
     }
   });
 };
-

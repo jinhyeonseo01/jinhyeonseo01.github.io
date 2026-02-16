@@ -88,6 +88,11 @@ function validateRegistry(raw: unknown, expectedKind: LinkKind): LinkRegistryIte
       typeof embedSrcValue === "string" && embedSrcValue.trim().length > 0
         ? embedSrcValue
         : undefined;
+    const ogImageValue = item.ogImage;
+    const ogImage =
+      typeof ogImageValue === "string" && ogImageValue.trim().length > 0
+        ? ogImageValue
+        : undefined;
 
     return {
       id: asString(item.id, `${expectedKind}[${index}].id`),
@@ -97,6 +102,7 @@ function validateRegistry(raw: unknown, expectedKind: LinkKind): LinkRegistryIte
       featured: asBoolean(item.featured, `${expectedKind}[${index}].featured`),
       order: asNumber(item.order, `${expectedKind}[${index}].order`),
       tags: asStringArray(item.tags, `${expectedKind}[${index}].tags`),
+      ogImage,
       embedType,
       embedSrc,
       texts: asLocalizedTextArray(item.texts, `${expectedKind}[${index}].texts`)
@@ -142,4 +148,3 @@ export function getLocalizedText(
     item.texts[0]
   );
 }
-

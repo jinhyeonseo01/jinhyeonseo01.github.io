@@ -34,6 +34,7 @@ const seo = createSeo({
   locale,
   title: `${text.title} | ${messages.detailForSite}`,
   description: text.summary,
+  image: item.ogImage ?? "/og/dashboard.svg",
   pathByLocale: buildLocalizedPathMap((entry) => `/${entry}/sites/${item.slug}/`),
   jsonLd: createDetailJsonLd({
     site,
@@ -77,4 +78,3 @@ const seo = createSeo({
     </div>
   </main>
 </BaseLayout>
-

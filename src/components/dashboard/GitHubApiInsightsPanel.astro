@@ -1,0 +1,89 @@
+---
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  locale: Locale;
+  username: string;
+  messages: Record<string, string>;
+}
+
+const { locale, username, messages } = Astro.props;
+---
+
+<section
+  class="panel github-board github-board--api"
+  data-github-insights
+  data-mode="api"
+  data-username={username}
+  data-locale={locale}
+  data-loading={messages.githubLoading}
+  data-unavailable={messages.githubUnavailable}
+  data-cached-label={messages.githubApiRemainingCached}
+>
+  <header class="github-board__header">
+    <div>
+      <h2 class="panel__title">{messages.githubApiCandidatesTitle}</h2>
+      <p class="panel__description">{messages.githubApiCandidatesDescription}</p>
+    </div>
+    <div class="github-board__meta">
+      <span class="github-board__sync" data-gh-sync data-prefix={messages.githubLastSync}>
+        {messages.githubLoading}
+      </span>
+      <span class="github-board__quota">
+        <span>{messages.githubApiRemaining}</span>
+        <strong data-gh-rate>--</strong>
+      </span>
+    </div>
+  </header>
+
+  <div class="github-metrics-grid github-metrics-grid--api">
+    <article class="github-metric-card">
+      <span class="github-metric-card__label">{messages.githubPublicRepos}</span>
+      <strong class="github-metric-card__value" data-gh-metric="repos">--</strong>
+      <span class="github-metric-card__icon" aria-hidden="true">▦</span>
+    </article>
+    <article class="github-metric-card">
+      <span class="github-metric-card__label">{messages.githubApiCandidates}</span>
+      <strong class="github-metric-card__value" data-gh-metric="api_candidates">--</strong>
+      <span class="github-metric-card__icon" aria-hidden="true">⌁</span>
+    </article>
+    <article class="github-metric-card">
+      <span class="github-metric-card__label">{messages.githubApiCandidateStars}</span>
+      <strong class="github-metric-card__value" data-gh-metric="api_candidate_stars">--</strong>
+      <span class="github-metric-card__icon" aria-hidden="true">★</span>
+    </article>
+    <article class="github-metric-card">
+      <span class="github-metric-card__label">{messages.githubApiCandidateIssues}</span>
+      <strong class="github-metric-card__value" data-gh-metric="api_candidate_issues">--</strong>
+      <span class="github-metric-card__icon" aria-hidden="true">◌</span>
+    </article>
+    <article class="github-metric-card">
+      <span class="github-metric-card__label">{messages.githubApiCandidateActive30d}</span>
+      <strong class="github-metric-card__value" data-gh-metric="api_candidate_active_30d">--</strong>
+      <span class="github-metric-card__icon" aria-hidden="true">⎈</span>
+    </article>
+  </div>
+
+  <div class="github-table-wrap">
+    <table class="github-table github-table--api">
+      <thead>
+        <tr>
+          <th>{messages.githubRepoName}</th>
+          <th>{messages.githubRepoLanguage}</th>
+          <th>{messages.githubRepoStars}</th>
+          <th>{messages.githubIssues}</th>
+          <th>{messages.githubRepoUpdated}</th>
+        </tr>
+      </thead>
+      <tbody data-gh-api-repos>
+        <tr>
+          <td colspan="5">{messages.githubLoading}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="github-error" data-gh-error hidden>{messages.githubUnavailable}</p>
+</section>
+
+<script is:inline type="module" src="/scripts/github-insights.js"></script>
