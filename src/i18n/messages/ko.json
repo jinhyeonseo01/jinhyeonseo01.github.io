@@ -1,8 +1,8 @@
 {
   "siteName": "Clerin Dev Hub",
   "heroEyebrow": "System Dashboard",
-  "heroTitle": "서비스, 콘텐츠, API를 하나의 운영 패널로 연결",
-  "heroDescription": "개인 브랜딩 채널과 개발 자산을 통합해서 빠르게 인계하는 시스템 대시보드입니다.",
+  "heroTitle": "브랜딩 채널·Unity/Graphics 자산·API를 하나의 운영 패널에서 연결",
+  "heroDescription": "개인 브랜딩 채널과 게임 개발 자산을 한곳에 통합해, 프로젝트 인계와 운영 흐름을 빠르게 이어주는 시스템 대시보드입니다.",
   "systemOverview": "시스템 개요",
   "quickActions": "빠른 이동",
   "metricMainChannels": "메인 채널",

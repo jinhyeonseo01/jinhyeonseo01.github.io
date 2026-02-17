@@ -97,7 +97,7 @@ export function createHubJsonLd(input: HubJsonLdInput): unknown[] {
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      name: "Jinhyeon Seo",
+      name: "Clerin",
       url: input.site,
       sameAs: [
         "https://techblog.clerindev.com/",

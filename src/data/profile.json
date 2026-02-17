@@ -1,18 +1,18 @@
 {
-  "name": "Jinhyeon Seo",
-  "role": "Full-stack Developer",
+  "name": "Clerin",
+  "role": "Unity & Graphics Developer",
   "location": "Seoul, Korea",
   "avatarEmoji": "🛰️",
   "texts": [
     {
       "locale": "ko",
-      "headline": "개발과 서비스 운영을 연결하는 빌더",
-      "bio": "콘텐츠, 제품, API를 하나의 흐름으로 연결하는 개발자입니다."
+      "headline": "게임 테크니컬 아트 워크플로를 설계하는 빌더",
+      "bio": "Unity·Graphics 개발 자산과 API를 하나의 운영 흐름으로 연결합니다."
     },
     {
       "locale": "en",
-      "headline": "A builder connecting development and product delivery",
-      "bio": "I build products that connect content, software, and APIs into one practical flow."
+      "headline": "Builder for Unity/graphics and game technical-art workflows",
+      "bio": "I connect Unity and graphics projects with APIs into one practical operations flow."
     },
     {
       "locale": "ja",
