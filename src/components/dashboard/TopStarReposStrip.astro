@@ -23,12 +23,22 @@ const { locale, username, messages } = Astro.props;
   data-label-updated={messages.topStarReposUpdated}
   data-label-open={messages.topStarReposOpen}
 >
-  <header class="dashboard-section__header">
-    <h2 class="dashboard-section__title">{messages.topStarReposTitle}</h2>
-    <p class="dashboard-section__description">{messages.topStarReposDescription}</p>
+  <header class="dashboard-section__header repo-strip-panel__header">
+    <div>
+      <h2 class="dashboard-section__title">{messages.topStarReposTitle}</h2>
+      <p class="dashboard-section__description">{messages.topStarReposDescription}</p>
+    </div>
+    <a
+      class="btn btn--secondary repo-strip-panel__shortcut"
+      href={`https://github.com/${username}?tab=repositories`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {messages.githubVisitProfile}
+    </a>
   </header>
 
-  <div class="repo-strip-scroll" data-top-repos-list>
+  <div class="repo-strip-scroll" data-top-repos-list aria-label={messages.topStarReposTitle} tabindex="0">
     <article class="repo-strip-card repo-strip-card--placeholder">
       <p>{messages.githubLoading}</p>
     </article>

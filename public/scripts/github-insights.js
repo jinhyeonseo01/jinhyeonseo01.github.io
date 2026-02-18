@@ -494,6 +494,9 @@ function renderTopRepos(root, repos, locale, unavailableText) {
     const card = document.createElement("article");
     card.className = "repo-strip-card";
 
+    const head = document.createElement("div");
+    head.className = "repo-strip-card__head";
+
     const title = document.createElement("h3");
     title.className = "repo-strip-card__title";
     const link = document.createElement("a");
@@ -502,7 +505,18 @@ function renderTopRepos(root, repos, locale, unavailableText) {
     link.rel = "noopener noreferrer";
     link.textContent = repo.name;
     title.appendChild(link);
-    card.appendChild(title);
+
+    const starPill = document.createElement("span");
+    starPill.className = "repo-strip-card__star-pill";
+    starPill.textContent = `★ ${formatNumber(getNumber(repo.stargazers_count), locale)}`;
+    starPill.setAttribute(
+      "aria-label",
+      `${labelStars}: ${formatNumber(getNumber(repo.stargazers_count), locale)}`
+    );
+
+    head.appendChild(title);
+    head.appendChild(starPill);
+    card.appendChild(head);
 
     const desc = document.createElement("p");
     desc.className = "repo-strip-card__summary";
@@ -513,9 +527,9 @@ function renderTopRepos(root, repos, locale, unavailableText) {
     stats.className = "repo-strip-card__stats";
 
     const statItems = [
-      `${labelStars}: ${formatNumber(getNumber(repo.stargazers_count), locale)}`,
       `${labelForks}: ${formatNumber(getNumber(repo.forks_count), locale)}`,
-      `${labelIssues}: ${formatNumber(getNumber(repo.open_issues_count), locale)}`
+      `${labelIssues}: ${formatNumber(getNumber(repo.open_issues_count), locale)}`,
+      `${labelUpdated}: ${formatDate(repo.pushed_at, locale)}`
     ];
 
     for (const item of statItems) {
@@ -526,22 +540,26 @@ function renderTopRepos(root, repos, locale, unavailableText) {
 
     card.appendChild(stats);
 
-    const footer = document.createElement("div");
-    footer.className = "repo-strip-card__footer";
-
-    const updated = document.createElement("span");
-    updated.textContent = `${labelUpdated}: ${formatDate(repo.pushed_at, locale)}`;
-    footer.appendChild(updated);
+    const shortcuts = document.createElement("div");
+    shortcuts.className = "repo-strip-card__quick";
 
     const openLink = document.createElement("a");
-    openLink.className = "repo-strip-card__open";
+    openLink.className = "repo-strip-card__shortcut repo-strip-card__shortcut--primary";
     openLink.href = repo.html_url;
     openLink.target = "_blank";
     openLink.rel = "noopener noreferrer";
     openLink.textContent = labelOpen;
-    footer.appendChild(openLink);
+    shortcuts.appendChild(openLink);
 
-    card.appendChild(footer);
+    const issuesLink = document.createElement("a");
+    issuesLink.className = "repo-strip-card__shortcut repo-strip-card__shortcut--ghost";
+    issuesLink.href = `${repo.html_url}/issues`;
+    issuesLink.target = "_blank";
+    issuesLink.rel = "noopener noreferrer";
+    issuesLink.textContent = labelIssues;
+    shortcuts.appendChild(issuesLink);
+
+    card.appendChild(shortcuts);
     list.appendChild(card);
   }
 }

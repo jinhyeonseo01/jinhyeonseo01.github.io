@@ -18,16 +18,20 @@ const { title, description, locale, items } = Astro.props;
     <p class="dashboard-section__description">{description}</p>
   </header>
 
-  <div class="card-grid">
-    {
-      items.map((item) => (
-        <LinkCard
-          item={item}
-          locale={locale}
-          detailPath={`/${locale}/${item.kind === "api" ? "apis" : "sites"}/${item.slug}/`}
-        />
-      ))
-    }
+  <div class="card-rail-wrap">
+    <div class="card-rail" aria-label={title} tabindex="0">
+      {
+        items.map((item) => (
+          <div class="card-rail__item">
+            <LinkCard
+              item={item}
+              locale={locale}
+              detailPath={`/${locale}/${item.kind === "api" ? "apis" : "sites"}/${item.slug}/`}
+            />
+          </div>
+        ))
+      }
+    </div>
   </div>
 </section>
 
