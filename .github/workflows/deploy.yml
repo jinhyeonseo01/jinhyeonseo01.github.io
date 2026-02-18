@@ -12,12 +12,13 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,7 +36,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Generate OG cover snapshot
         run: pnpm run sync:og
@@ -45,6 +46,8 @@ jobs:
           GH_SNAPSHOT_TOKEN: ${{ secrets.GH_SNAPSHOT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: jinhyeonseo01
+          GITHUB_SNAPSHOT_REQUIRED: "false"
+          GITHUB_SNAPSHOT_MAX_RETRIES: "3"
         run: pnpm run sync:github
 
       - name: Build site
