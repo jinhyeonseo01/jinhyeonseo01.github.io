@@ -8,3 +8,4 @@ dist
 !.env.example
 
 vuestic-admin-master/
+_tmp*

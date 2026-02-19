@@ -31,5 +31,38 @@
         "summary": "根据游戏偏好分析 MBTI 倾向的网站。"
       }
     ]
+  },
+  {
+    "id": "project-uslearn",
+    "slug": "uslearn",
+    "kind": "project",
+    "href": "https://uslearn.clerindev.com/",
+    "featured": true,
+    "order": 120,
+    "tags": ["learning", "education", "study"],
+    "ogImage": "/og/dashboard.svg",
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "Unity 최신 셰이더 공부",
+        "summary": "최신 Unity URP와 고급 셰이더 기법을 중심으로, 렌더링 아키텍처부터 ShaderLab 구조와 실전 HLSL 구현까지 다루는 기술 중심 학습 사이트입니다."
+      },
+      {
+        "locale": "en",
+        "title": "Latest Unity Shader Study",
+        "summary": "A technical learning site focused on modern Unity URP and advanced shader techniques, covering rendering architecture, ShaderLab structure, and practical HLSL implementation."
+      },
+      {
+        "locale": "ja",
+        "title": "Unity 最新シェーダー学習",
+        "summary": "最新の Unity URP と高度なシェーダー技法を中心に、レンダリングアーキテクチャから ShaderLab 構造、実践的な HLSL 実装まで扱う技術学習サイトです。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "Unity 最新着色器学习",
+        "summary": "这是一个以最新 Unity URP 与高级着色器技术为核心的技术学习站点，涵盖渲染架构、ShaderLab 结构以及实战 HLSL 实现。"
+      }
+    ]
   }
 ]
