@@ -97,5 +97,38 @@
         "summary": "查看代码仓库与持续中的实验项目。"
       }
     ]
+  },
+  {
+    "id": "main-uslearn",
+    "slug": "uslearn",
+    "kind": "main",
+    "href": "https://uslearn.clerindev.com/",
+    "featured": true,
+    "order": 40,
+    "tags": ["learning", "education", "study"],
+    "ogImage": "/og/dashboard.svg",
+    "embedType": "none",
+    "texts": [
+      {
+        "locale": "ko",
+        "title": "US Learn",
+        "summary": "학습 자료와 교육 콘텐츠를 제공하는 채널입니다."
+      },
+      {
+        "locale": "en",
+        "title": "US Learn",
+        "summary": "A channel for learning resources and educational content."
+      },
+      {
+        "locale": "ja",
+        "title": "US Learn",
+        "summary": "学習リソースと教育コンテンツを提供するチャンネルです。"
+      },
+      {
+        "locale": "zh-cn",
+        "title": "US Learn",
+        "summary": "提供学习资料与教育内容的频道。"
+      }
+    ]
   }
 ]
